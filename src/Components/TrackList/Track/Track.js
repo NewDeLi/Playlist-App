@@ -1,21 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
+import "./Track.css";
 
-export default function Track({ isRemoval }) {
-  const renderAction = () => {
-    return isRemoval ? (
-      <button className="Track-action">-</button>
-    ) : (
-      <button className="Track-action">+</button>
-    );
-  };
+export default function Track({ searchResult, playlistTrack }) {
+  const [isRemoval] = useState(searchResult ? false : true);
 
-  return (
+  const renderAction = isRemoval ? (
+    <button className="Track-action">-</button>
+  ) : (
+    <button className="Track-action">+</button>
+  );
+
+  return searchResult ? (
     <div className="Track">
-      <div className="Track-information">
-        <h3>Titel</h3>
-        <p>Content</p>
-      </div>
-      {renderAction()}
+      <li className="Track-information">
+        <h3>{searchResult.name}</h3>
+        <p>
+          {searchResult.artist}||{searchResult.album}
+        </p>
+      </li>
+      {renderAction}
+    </div>
+  ) : (
+    <div className="Track">
+      <li className="Track-information">
+        <h3>{playlistTrack.name}</h3>
+        <p>
+          {playlistTrack.artist}||{playlistTrack.album}
+        </p>
+      </li>
+      {renderAction}
     </div>
   );
 }
