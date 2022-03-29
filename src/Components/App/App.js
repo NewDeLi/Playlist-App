@@ -21,17 +21,26 @@ function App() {
   ]);
 
   const handleAdd = (id) => {
-    const newPlayListTrack = searchResults?.filter(
+    const newPlayListTrack = searchResults.filter(
       (searchResult) => searchResult.id === id
     )[0];
-    setPlaylistTracks([...playlistTracks, newPlayListTrack]);
+    playlistTracks.some((x) => x.id === newPlayListTrack.id)
+      ? alert("already added to playlist")
+      : setPlaylistTracks([...playlistTracks, newPlayListTrack]);
   };
 
   const handleRemove = (id) => {
-    console.log(searchResults);
     setPlaylistTracks(
-      playlistTracks?.filter((playlistTrack) => playlistTrack.id !== id)
+      playlistTracks.filter((playlistTrack) => playlistTrack.id !== id)
     );
+  };
+
+  const updatePlaylistName = (name) => {
+    setPlaylistName(name);
+  };
+
+  const savePlayList = () => {
+    const trackUris = playlistTracks.map((track) => track.uri);
   };
 
   return (
@@ -51,6 +60,8 @@ function App() {
           playlistTracks={playlistTracks}
           setPlaylistTracks={setPlaylistTracks}
           onRemove={handleRemove}
+          onUpdate={updatePlaylistName}
+          onSave={savePlayList}
         />
       </div>
     </div>
