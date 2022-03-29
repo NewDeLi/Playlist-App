@@ -1,12 +1,12 @@
 import React from "react";
-import TrackList from "../TrackList/TrackList";
+import Tracklist from "../Tracklist/Tracklist";
 import "./Playlist.css";
 
-export default function PlayList({ playlistName, playlistTracks }) {
+export default function Playlist({ playlistName, playlistTracks, onRemove }) {
   return (
     <div className="Playlist">
       <input defaultValue="New Playlist" />
-      <TrackList playlistTracks={playlistTracks} />
+      <Tracklist playlistTracks={playlistTracks} onRemove={onRemove} />
       <button className="Playlist-save">SAVE TO SPOTIFY</button>
     </div>
   );

@@ -1,7 +1,7 @@
 import "./App.css";
 import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from "../SearchResults/SearchResults";
-import PlayList from "../Playlist/Playlist";
+import Playlist from "../Playlist/Playlist";
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
@@ -19,7 +19,20 @@ function App() {
     { name: "name", artist: "artist", album: "album", id: uuidv4() },
     { name: "name", artist: "artist", album: "album", id: uuidv4() },
   ]);
-  
+
+  const handleAdd = (id) => {
+    const newPlayListTrack = searchResults?.filter(
+      (searchResult) => searchResult.id === id
+    )[0];
+    setPlaylistTracks([...playlistTracks, newPlayListTrack]);
+  };
+
+  const handleRemove = (id) => {
+    console.log(searchResults);
+    setPlaylistTracks(
+      playlistTracks?.filter((playlistTrack) => playlistTrack.id !== id)
+    );
+  };
 
   return (
     <div className="App">
@@ -28,8 +41,17 @@ function App() {
       </h1>
       <SearchBar />
       <div className="App-playlist">
-        <SearchResults searchResults={searchResults} />
-        <PlayList playlistName={playlistName} playlistTracks={playlistTracks} />
+        <SearchResults
+          searchResults={searchResults}
+          setSearchResults={setSearchResults}
+          onAdd={handleAdd}
+        />
+        <Playlist
+          playlistName={playlistName}
+          playlistTracks={playlistTracks}
+          setPlaylistTracks={setPlaylistTracks}
+          onRemove={handleRemove}
+        />
       </div>
     </div>
   );

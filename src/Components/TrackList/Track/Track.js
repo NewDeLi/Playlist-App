@@ -1,13 +1,22 @@
 import React, { useState } from "react";
 import "./Track.css";
 
-export default function Track({ searchResult, playlistTrack }) {
+export default function Track({
+  searchResult,
+  playlistTrack,
+  onRemove,
+  onAdd,
+}) {
   const [isRemoval] = useState(searchResult ? false : true);
 
   const renderAction = isRemoval ? (
-    <button className="Track-action">-</button>
+    <button className="Track-action" onClick={() => onRemove(playlistTrack.id)}>
+      -
+    </button>
   ) : (
-    <button className="Track-action">+</button>
+    <button className="Track-action" onClick={() => onAdd(searchResult.id)}>
+      +
+    </button>
   );
 
   return searchResult ? (

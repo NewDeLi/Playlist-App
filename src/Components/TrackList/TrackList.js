@@ -2,13 +2,26 @@ import React from "react";
 import Track from "./Track/Track";
 import "./Tracklist.css";
 
-export default function TrackList({ searchResults, playlistTracks }) {
+export default function Tracklist({
+  searchResults,
+  playlistTracks,
+  onAdd,
+  onRemove,
+}) {
   const renderSearchResults = searchResults?.map((searchResult) => {
-    return <Track searchResult={searchResult} key={searchResult.id} />;
+    return (
+      <Track searchResult={searchResult} key={searchResult.id} onAdd={onAdd} />
+    );
   });
 
   const renderPlaylistTracks = playlistTracks?.map((playlistTrack) => {
-    return <Track playlistTrack={playlistTrack} key={playlistTrack.id} />;
+    return (
+      <Track
+        playlistTrack={playlistTrack}
+        key={playlistTrack.id}
+        onRemove={onRemove}
+      />
+    );
   });
 
   return (
