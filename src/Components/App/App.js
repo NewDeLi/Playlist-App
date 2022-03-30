@@ -3,12 +3,12 @@ import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from "../SearchResults/SearchResults";
 import Playlist from "../Playlist/Playlist";
 import React, { useState } from "react";
-import Spotify from "../../util/Spotify";
+import { SpotifySave, SpotifySearch } from "../../util/Spotify";
 
 function App() {
   const [searchResults, setSearchResults] = useState([]);
 
-  const [playlistName, setPlaylistName] = useState("name of playlist");
+  const [playlistName, setPlaylistName] = useState("New Playlist");
 
   const [playlistTracks, setPlaylistTracks] = useState([]);
 
@@ -19,6 +19,7 @@ function App() {
     playlistTracks.some((x) => x.id === newPlayListTrack.id)
       ? alert("already added to playlist")
       : setPlaylistTracks([...playlistTracks, newPlayListTrack]);
+    console.log(playlistTracks);
   };
 
   const handleRemove = (id) => {
@@ -31,12 +32,15 @@ function App() {
     setPlaylistName(name);
   };
 
-  const savePlayList = () => {
+  const savePlayList = async () => {
     const trackUris = playlistTracks.map((track) => track.uri);
+    await SpotifySave(playlistName, trackUris);
+    setPlaylistName("New Playlist");
+    setPlaylistTracks([]);
   };
 
   const search = async (searchTerm) => {
-    const newSearchResults = await Spotify(searchTerm);
+    const newSearchResults = await SpotifySearch(searchTerm);
     setSearchResults(newSearchResults);
   };
 

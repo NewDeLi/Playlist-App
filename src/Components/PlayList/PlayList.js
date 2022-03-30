@@ -7,7 +7,7 @@ export default function Playlist({
   playlistTracks,
   onRemove,
   onUpdate,
-  onSave
+  onSave,
 }) {
   const handleNameChange = (event) => {
     event.preventDefault();
@@ -16,9 +16,11 @@ export default function Playlist({
   };
   return (
     <div className="Playlist">
-      <input defaultValue="New Playlist" onChange={handleNameChange} />
+      <input defaultValue={playlistName} onChange={handleNameChange} />
       <Tracklist playlistTracks={playlistTracks} onRemove={onRemove} />
-      <button className="Playlist-save" onClick={onSave} >SAVE TO SPOTIFY</button>
+      <button className="Playlist-save" onClick={onSave}>
+        SAVE TO SPOTIFY
+      </button>
     </div>
   );
 }
