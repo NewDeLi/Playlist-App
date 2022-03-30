@@ -3,7 +3,7 @@ const redirectUri = "http://localhost:3000";
 
 let accessToken;
 
-const getAccesToken = () => {
+export const getAccesToken = () => {
   if (accessToken) {
     return accessToken;
   }

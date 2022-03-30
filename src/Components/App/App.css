@@ -8,6 +8,13 @@ html {
   font-size: 18px;
 }
 
+@media only screen and (max-width: 400px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+
 h1 {
   padding: 0.77rem 0;
   background-color: #010c3f;
@@ -50,8 +57,3 @@ h2 {
   }
 }
 
-@media only screen and (max-width: 400px) {
-  html {
-    font-size: 14px;
-  }
-}

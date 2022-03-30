@@ -3,7 +3,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from "../SearchResults/SearchResults";
 import Playlist from "../Playlist/Playlist";
 import React, { useState } from "react";
-import { SpotifySave, SpotifySearch } from "../../util/Spotify";
+import { SpotifySave, SpotifySearch, getAccesToken } from "../../util/Spotify";
 
 function App() {
   const [searchResults, setSearchResults] = useState([]);
@@ -43,6 +43,8 @@ function App() {
     const newSearchResults = await SpotifySearch(searchTerm);
     setSearchResults(newSearchResults);
   };
+
+  getAccesToken()
 
   return (
     <div className="App">
