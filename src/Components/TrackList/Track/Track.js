@@ -43,6 +43,12 @@ export default function Track({
           {playlistTrack.artist}||{playlistTrack.album}
         </p>
       </li>
+      <img
+        src={playlistTrack.image}
+        alt="album cover "
+        height="90vh"
+        width="90vw"
+      />
       {renderAction}
     </div>
   );

@@ -3,7 +3,6 @@ import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from "../SearchResults/SearchResults";
 import Playlist from "../Playlist/Playlist";
 import React, { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import Spotify from "../../util/Spotify";
 
 function App() {
@@ -11,11 +10,7 @@ function App() {
 
   const [playlistName, setPlaylistName] = useState("name of playlist");
 
-  const [playlistTracks, setPlaylistTracks] = useState([
-    { name: "playname", artist: "artist", album: "album", id: uuidv4() },
-    { name: "name", artist: "artist", album: "album", id: uuidv4() },
-    { name: "name", artist: "artist", album: "album", id: uuidv4() },
-  ]);
+  const [playlistTracks, setPlaylistTracks] = useState([]);
 
   const handleAdd = (id) => {
     const newPlayListTrack = searchResults.filter(
