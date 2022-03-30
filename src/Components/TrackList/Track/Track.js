@@ -27,6 +27,12 @@ export default function Track({
           {searchResult.artist}||{searchResult.album}
         </p>
       </li>
+      <img
+        src={searchResult.image}
+        alt="album cover "
+        height="90vh"
+        width="90vw"
+      />
       {renderAction}
     </div>
   ) : (

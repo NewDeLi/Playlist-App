@@ -5,7 +5,7 @@ export default function SearchBar({ onSearch }) {
   const handleSearch = (event) => {
     event.preventDefault();
     const newSearch = event.target.value;
-    onSearch({term:newSearch});
+    onSearch(newSearch);
   };
   return (
     <div className="SearchBar">

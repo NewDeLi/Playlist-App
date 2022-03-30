@@ -4,13 +4,10 @@ import SearchResults from "../SearchResults/SearchResults";
 import Playlist from "../Playlist/Playlist";
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import Spotify from "../../util/Spotify";
 
 function App() {
-  const [searchResults, setSearchResults] = useState([
-    { name: "name", artist: "artist", album: "album", id: uuidv4() },
-    { name: "name", artist: "artist", album: "album", id: uuidv4() },
-    { name: "name", artist: "artist", album: "album", id: uuidv4() },
-  ]);
+  const [searchResults, setSearchResults] = useState([]);
 
   const [playlistName, setPlaylistName] = useState("name of playlist");
 
@@ -43,8 +40,9 @@ function App() {
     const trackUris = playlistTracks.map((track) => track.uri);
   };
 
-  const search = (searchTerm) => {
-    console.log(searchTerm);
+  const search = async (searchTerm) => {
+    const newSearchResults = await Spotify(searchTerm);
+    setSearchResults(newSearchResults);
   };
 
   return (
