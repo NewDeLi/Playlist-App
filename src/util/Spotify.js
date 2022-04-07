@@ -45,6 +45,7 @@ export const SpotifySearch = (term) => {
       album: track.album.name,
       uri: track.uri,
       image: track.album.images[0].url,
+      preview: track.preview_url,
     }));
   };
 

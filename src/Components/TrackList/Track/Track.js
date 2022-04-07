@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Track.css";
+import PlayCircleFilled from "@material-ui/icons/PlayCircleFilled";
 
 export default function Track({
   searchResult,
@@ -19,6 +20,10 @@ export default function Track({
     </button>
   );
 
+  const handlePlayCircleClick = () => {
+    return !searchResult.preview ? alert("sorry no preview available") : "";
+  };
+
   return searchResult ? (
     <div className="Track">
       <li className="Track-information">
@@ -33,6 +38,14 @@ export default function Track({
         height="90vh"
         width="90vw"
       />
+      <a
+        href={searchResult.preview}
+        target="_blank"
+        rel="noreferrer"
+        onClick={handlePlayCircleClick}
+      >
+        <PlayCircleFilled />
+      </a>
       {renderAction}
     </div>
   ) : (
