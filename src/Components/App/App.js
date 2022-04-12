@@ -2,8 +2,9 @@ import "./App.css";
 import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from "../SearchResults/SearchResults";
 import Playlist from "../Playlist/Playlist";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SpotifySave, SpotifySearch, getAccesToken } from "../../util/Spotify";
+import ReactLoading from "react-loading";
 
 function App() {
   const [searchResults, setSearchResults] = useState([]);
@@ -11,6 +12,14 @@ function App() {
   const [playlistName, setPlaylistName] = useState("New Playlist");
 
   const [playlistTracks, setPlaylistTracks] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(undefined);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(true);
+    }, 2000);
+  }, []);
 
   const handleAdd = (id) => {
     const newPlayListTrack = searchResults.filter(
@@ -43,6 +52,7 @@ function App() {
     await SpotifySave(playlistName, trackUris);
     setPlaylistName("New Playlist");
     setPlaylistTracks([]);
+    alert("saved to spotify account");
   };
 
   const search = async (searchTerm) => {
@@ -50,30 +60,47 @@ function App() {
     setSearchResults(newSearchResults);
   };
 
-  getAccesToken();
-
   return (
-    <div className="App">
-      <h1>
-        Ja<span className="highlight">mmm</span>ing
-      </h1>
-      <SearchBar onSearch={search} />
-      <div className="App-playlist">
-        <SearchResults
-          searchResults={searchResults}
-          setSearchResults={setSearchResults}
-          onAdd={handleAdd}
+    <>
+      {!isLoading ? (
+        <ReactLoading
+          type={"cylon"}
+          color={"#6c41ec"}
+          height={100}
+          width={100}
+          className="loading"
         />
-        <Playlist
-          playlistName={playlistName}
-          playlistTracks={playlistTracks}
-          setPlaylistTracks={setPlaylistTracks}
-          onRemove={handleRemove}
-          onUpdate={updatePlaylistName}
-          onSave={savePlayList}
-        />
-      </div>
-    </div>
+      ) : (
+        <div className="App">
+          <h1>
+            Ja<span className="highlight">mmm</span>ing
+          </h1>
+          <div className="login">
+            <img
+              src="https://getheavy.com/wp-content/uploads/2019/12/spotify2019-830x350.jpg"
+              alt="Spotify-Logo"
+            />
+            <button onClick={() => getAccesToken()}>Login with Spotify</button>
+          </div>
+          <SearchBar onSearch={search} />
+          <div className="App-playlist">
+            <SearchResults
+              searchResults={searchResults}
+              setSearchResults={setSearchResults}
+              onAdd={handleAdd}
+            />
+            <Playlist
+              playlistName={playlistName}
+              playlistTracks={playlistTracks}
+              setPlaylistTracks={setPlaylistTracks}
+              onRemove={handleRemove}
+              onUpdate={updatePlaylistName}
+              onSave={savePlayList}
+            />
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
