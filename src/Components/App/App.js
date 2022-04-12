@@ -19,13 +19,19 @@ function App() {
     playlistTracks.some((x) => x.id === newPlayListTrack.id)
       ? alert("already added to playlist")
       : setPlaylistTracks([...playlistTracks, newPlayListTrack]);
-    console.log(playlistTracks);
+    setSearchResults(
+      searchResults.filter((searchResult) => searchResult.id !== id)
+    );
   };
 
   const handleRemove = (id) => {
     setPlaylistTracks(
       playlistTracks.filter((playlistTrack) => playlistTrack.id !== id)
     );
+    setSearchResults([
+      playlistTracks.filter((playlistTrack) => playlistTrack.id === id)[0],
+      ...searchResults,
+    ]);
   };
 
   const updatePlaylistName = (name) => {
@@ -44,7 +50,7 @@ function App() {
     setSearchResults(newSearchResults);
   };
 
-  getAccesToken()
+  getAccesToken();
 
   return (
     <div className="App">
