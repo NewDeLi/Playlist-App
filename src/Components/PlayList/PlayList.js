@@ -16,11 +16,13 @@ export default function Playlist({
   };
   return (
     <div className="Playlist">
-      <input defaultValue={playlistName} onChange={handleNameChange} />
+      <div className="PlaylistName">
+        <input placeholder={playlistName} onChange={handleNameChange} />
+        <button className="Playlist-save" onClick={onSave}>
+          SAVE TO SPOTIFY
+        </button>
+      </div>
       <Tracklist playlistTracks={playlistTracks} onRemove={onRemove} />
-      <button className="Playlist-save" onClick={onSave}>
-        SAVE TO SPOTIFY
-      </button>
     </div>
   );
 }

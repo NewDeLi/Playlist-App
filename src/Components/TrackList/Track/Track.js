@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Track.css";
 import PlayCircleFilled from "@material-ui/icons/PlayCircleFilled";
+import useSound from "use-sound";
 
 export default function Track({
   searchResult,
@@ -8,6 +9,8 @@ export default function Track({
   onRemove,
   onAdd,
 }) {
+  const [play] = useSound(`"${searchResult?.preview}"`);
+
   const [isRemoval] = useState(searchResult ? false : true);
 
   const renderAction = isRemoval ? (
@@ -21,7 +24,7 @@ export default function Track({
   );
 
   const handlePlayCircleClick = () => {
-    return !searchResult.preview ? alert("sorry no preview available") : "";
+    return !searchResult.preview ? alert("sorry no preview available") : play;
   };
 
   return searchResult ? (
@@ -44,7 +47,7 @@ export default function Track({
         rel="noreferrer"
         onClick={handlePlayCircleClick}
       >
-        <PlayCircleFilled />
+        <PlayCircleFilled onClick={handlePlayCircleClick} />
       </a>
       {renderAction}
     </div>
